@@ -158,6 +158,12 @@ public final class ClientDataValidator {
             baseDataValidator.reset().parameter(ClientApiConstants.externalIdParamName).value(externalId).ignoreIfNull()
                     .notExceedingLengthOf(100);
         }
+        // Se valida el parametro del perfil del inversionista
+        if (this.fromApiJsonHelper.parameterExists(ClientApiConstants.investorProfileParamName, element)) {
+            final String investorProfile = this.fromApiJsonHelper.extractStringNamed(ClientApiConstants.investorProfileParamName, element);
+            baseDataValidator.reset().parameter(ClientApiConstants.investorProfileParamName).value(investorProfile).ignoreIfNull()
+                    .notExceedingLengthOf(10);
+        }
 
         if (this.fromApiJsonHelper.parameterExists(ClientApiConstants.mobileNoParamName, element)) {
             final String mobileNo = this.fromApiJsonHelper.extractStringNamed(ClientApiConstants.mobileNoParamName, element);
@@ -519,6 +525,13 @@ public final class ClientDataValidator {
         if (!atLeastOneParameterPassedForUpdate && !atLeastOneParameterPassedForClientNonPersonUpdate) {
             final Object forceError = null;
             baseDataValidator.reset().anyOfNotNull(forceError);
+        }
+
+        // Se valida el parametro del perfil del inversionista
+        if (this.fromApiJsonHelper.parameterExists(ClientApiConstants.investorProfileParamName, element)) {
+            final String investorProfile = this.fromApiJsonHelper.extractStringNamed(ClientApiConstants.investorProfileParamName, element);
+            baseDataValidator.reset().parameter(ClientApiConstants.investorProfileParamName).value(investorProfile).ignoreIfNull()
+                    .notExceedingLengthOf(10);
         }
 
         @SuppressWarnings("unchecked")

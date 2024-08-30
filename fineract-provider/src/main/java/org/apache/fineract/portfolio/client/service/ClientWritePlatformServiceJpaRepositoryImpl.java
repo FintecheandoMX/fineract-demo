@@ -257,6 +257,8 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
             final String fullname = command.stringValueOfParameterNamed(ClientApiConstants.fullnameParamName);
             final boolean isStaff = command.booleanPrimitiveValueOfParameterNamed(ClientApiConstants.isStaffParamName);
             final LocalDate dataOfBirth = command.localDateValueOfParameterNamed(ClientApiConstants.dateOfBirthParamName);
+            // Se obtiene el valor del parametro de Investor Profile
+            final String investorProfile = command.stringValueOfParameterNamed(ClientApiConstants.investorProfileParamName);
 
             ClientStatus status = ClientStatus.PENDING;
             boolean active = false;
@@ -286,7 +288,7 @@ public class ClientWritePlatformServiceJpaRepositoryImpl implements ClientWriteP
             final Client newClient = Client.instance(currentUser, status, clientOffice, clientParentGroup, accountNo, firstname, middlename,
                     lastname, fullname, activationDate, officeJoiningDate, externalId, mobileNo, emailAddress, staff, submittedOnDate,
                     savingsProductId, savingsAccountId, dataOfBirth, gender, clientType, clientClassification, legalForm.getValue(),
-                    isStaff);
+                    isStaff, investorProfile);
 
             this.clientRepository.saveAndFlush(newClient);
             boolean rollbackTransaction = false;
